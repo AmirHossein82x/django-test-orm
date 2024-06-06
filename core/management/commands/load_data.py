@@ -19,9 +19,11 @@ class Command(BaseCommand):
         comments = []
         orders = []
         order_items = []
+        call_command("migrate", "--noinput")
         call_command("flush", "--noinput")
         self.stdout.write(
             self.style.NOTICE("clearing old data!")
+
         )
         admin = User.objects.create(username="amirhossein", first_name="amirhossein", last_name="ghasemi",
                                     email="amirhosseing983@gmail.com", is_superuser=True, is_staff=True)
@@ -297,46 +299,97 @@ class Command(BaseCommand):
         for user in users:
             user.set_password("1234")
             user.save()
-            print(f"user {user.id} created --> {user.username}")
+            self.stdout.write(
+                self.style.HTTP_INFO(
+                    f"user {user.id} created --> {user.username}")
+
+            )
 
         print("*" * 30)
 
         for city in cities:
-            print(f"city: {city.title} created")
+            self.stdout.write(
+                self.style.HTTP_INFO(f"city: {city.title} created")
 
-        print("*" * 30)
+            )
+
+        self.stdout.write(
+            self.style.HTTP_INFO("*"*30 + '\n')
+
+        )
 
         for profile in profiles:
-            print(f"profile created for {profile.user.username}")
+            self.stdout.write(
+                self.style.HTTP_INFO(
+                    f"profile created for {profile.user.username}")
 
-        print("*" * 30)
+            )
+
+        self.stdout.write(
+            self.style.HTTP_INFO("*"*30 + '\n')
+
+        )
 
         for category in categories:
-            print(f"category: {category.title} created")
+            self.stdout.write(
+                self.style.HTTP_INFO(f"category: {category.title} created")
 
-        print("*" * 30)
+            )
+
+        self.stdout.write(
+            self.style.HTTP_INFO("*"*30 + '\n')
+
+        )
 
         for promotion in promotions:
-            print(f"promotion: {promotion.discount:.0%} created")
+            self.stdout.write(
+                self.style.HTTP_INFO(
+                    f"promotion: {promotion.discount:.0%} created")
 
-        print("*" * 30)
+            )
+
+        self.stdout.write(
+            self.style.HTTP_INFO("*"*30 + '\n')
+
+        )
 
         for product in products:
-            print(f"product : {product.title} created")
+            self.stdout.write(
+                self.style.HTTP_INFO(f"product : {product.title} created")
 
-        print("*" * 30)
+            )
+
+        self.stdout.write(
+            self.style.HTTP_INFO("*"*30 + '\n')
+
+        )
 
         for comment in comments:
-            print(
-                f"comment created: user -> {comment.user.username}  product --> {comment.product.title}")
-        print("*" * 30)
+            self.stdout.write(
+                self.style.HTTP_INFO(
+                    f"comment created: user -> {comment.user.username}  product --> {comment.product.title}")
+
+            )
+        self.stdout.write(
+            self.style.HTTP_INFO("*"*30 + '\n')
+
+        )
 
         for order in orders:
-            print(f"order {order.id} created")
-        print("*" * 30)
+            self.stdout.write(
+                self.style.HTTP_INFO(f"order {order.id} created")
+
+            )
+        self.stdout.write(
+            self.style.HTTP_INFO("*"*30 + '\n')
+
+        )
 
         for items in order_items:
-            print(f"order item {items.id} created")
+            self.stdout.write(
+                self.style.HTTP_INFO(f"order item {items.id} created")
+
+            )
 
         self.stdout.write(
             self.style.SUCCESS('Successfully created data')
